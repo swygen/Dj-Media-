@@ -422,7 +422,7 @@
             : `<img src="${media}" alt="${title}" />`;
 
           output += `
-            <div class="news-item">
+            <div class="news-item" data-slug="${slug}" data-title="${title}" data-image="${media}" data-description="${description}">
               <h2>${title}</h2>
               ${mediaElement}
               <p>${description}</p>
@@ -460,8 +460,27 @@
       const urlParams = new URLSearchParams(window.location.search);
       const post = urlParams.get('post');
       if (post) {
-        document.querySelector('h1').innerText = `নির্বাচিত পোস্ট`;
-        // চাইলে এখানে ফিল্টার করে সেই পোস্টটি আলাদাভাবে দেখাতে পারেন
+        const postElement = document.querySelector(`.news-item[data-slug="${post}"]`);
+        if (postElement) {
+          const title = postElement.getAttribute('data-title');
+          const image = postElement.getAttribute('data-image');
+          const description = postElement.getAttribute('data-description');
+
+          // Open Graph Meta Tags update for sharing post
+          document.querySelector('meta[property="og:title"]').setAttribute('content', title);
+          document.querySelector('meta[property="og:image"]').setAttribute('content', image);
+          document.querySelector('meta[property="og:description"]').setAttribute('content', description);
+          document.querySelector('meta[property="og:url"]').setAttribute('content', `${window.location.origin}/?post=${post}`);
+
+          document.querySelector('h1').innerText = title;
+          document.getElementById('newsContainer').innerHTML = `
+            <div class="news-item">
+              <h2>${title}</h2>
+              <img src="${image}" alt="${title}" />
+              <p>${description}</p>
+            </div>
+          `;
+        }
       }
     });
   </script>
