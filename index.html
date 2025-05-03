@@ -466,187 +466,177 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>নিউজ প্যানেল</title>
-  <style>
-    .premium-news-container {
-      font-family: 'Segoe UI', sans-serif;
-      max-width: 1000px;
-      margin: 20px auto;
-      padding: 20px;
-      background: linear-gradient(to right, #fceabb, #f8b500);
-      border-radius: 15px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-    }
-
-    .premium-news-logo {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .premium-news-logo img {
-      width: 160px;
-    }
-
-    .premium-news-title {
-      text-align: center;
-      font-size: 36px;
-      font-weight: bold;
-      color: #222;
-      margin-bottom: 30px;
-    }
-
-    .premium-news-item {
-      background: #fff;
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 25px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
-
-    .premium-news-item h2 {
-      font-size: 28px;
-      color: #333;
-      margin-bottom: 10px;
-      text-align: center;
-    }
-
-    .premium-news-media {
-      width: 100%;
-      max-height: 300px;
-      border-radius: 10px;
-      object-fit: cover;
-      margin-bottom: 15px;
-    }
-
-    .premium-news-description {
-      font-size: 18px;
-      color: #555;
-      text-align: center;
-    }
-
-    .premium-news-full {
-      display: none;
-      margin-top: 10px;
-      color: #444;
-      line-height: 1.6;
-    }
-
-    .premium-news-toggle {
-      color: #0d6efd;
-      cursor: pointer;
-      font-weight: bold;
-      display: block;
-      text-align: center;
-      margin-top: 10px;
-    }
-
-    .premium-news-share {
-      background-color: #ff6600;
-      color: #fff;
-      padding: 10px 25px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      display: block;
-      margin: 15px auto 0;
-      font-size: 16px;
-      transition: 0.3s;
-    }
-
-    .premium-news-share:hover {
-      background-color: #cc5200;
-    }
-
-    @media (max-width: 600px) {
-      .premium-news-title { font-size: 26px; }
-      .premium-news-item h2 { font-size: 22px; }
-      .premium-news-description { font-size: 16px; }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DJ Media 24 - নিউজ</title>
+  <meta property="og:title" content="DJ Media 24 - নিউজ">
+  <meta property="og:description" content="সর্বশেষ খবর, ভিডিও ও আরও অনেক কিছু।">
+  <meta property="og:image" content="https://dj-media-24.netlify.app/cover.jpg"> <!-- একটি প্রিভিউ ইমেজ রাখুন -->
+  <meta property="og:url" content="https://dj-media-24.netlify.app">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="premium-news-container">
-    <div class="premium-news-logo">
-      <img src="https://i.postimg.cc/RZ49Vykn/20240110-084759.jpg" alt="Website Logo" />
-    </div>
-    <div class="premium-news-title">আজকের প্রিমিয়াম নিউজ</div>
-    <div id="premiumNewsContainer"></div>
+  <div class="logo">
+    <img src="https://i.postimg.cc/RZ49Vykn/20240110-084759.jpg" alt="DJ Media 24 Logo">
+  </div>
+
+  <div class="container">
+    <h1>আজকের প্রিমিয়াম নিউজ</h1>
+    <div id="newsContainer"></div>
   </div>
 
   <script>
-    fetch('https://sheetdb.io/api/v1/93b4nowtrr4qh')
+    // নিউজ ডেটা লোড
+    fetch('https://sheetdb.io/api/v1/93b4nowtrr4qh') // SheetDB API
       .then(res => res.json())
       .then(data => {
-        let html = '';
-        data.forEach(item => {
-          const title = item["Title "] || "শিরোনাম নেই";
-          const imgUrl = item["Img URL "] || "";
-          const desc = item["Description "] || "";
-          const full = item["Full News "] || "";
+        let output = '';
+        data.forEach(news => {
+          const title = news["Title "] || "শিরোনাম নেই";
+          const media = news["Img URL "] || "";
+          const description = news["Description "] || "";
+          const full = news["Full News "] || "";
+          const slug = encodeURIComponent(title.replace(/\s+/g, '-').toLowerCase());
 
-          // Check if the URL is a video (YouTube or mp4)
-          const mediaTag = imgUrl.includes('youtube.com') || imgUrl.includes('youtu.be')
-            ? `<iframe class="premium-news-media" src="https://www.youtube.com/embed/${getYouTubeId(imgUrl)}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
-            : imgUrl.includes('.mp4') 
-            ? `<video class="premium-news-media" controls>
-                <source src="${imgUrl}" type="video/mp4">
-                আপনার ব্রাউজার ভিডিও সমর্থন করে না।
-              </video>`
-            : `<img class="premium-news-media" src="${imgUrl}" alt="${title}" />`;
+          const mediaElement = media.includes('.mp4') || media.includes('youtube')
+            ? media.includes('youtube')
+              ? `<iframe width="100%" height="315" src="${media.replace("watch?v=", "embed/")}" frameborder="0" allowfullscreen></iframe>`
+              : `<video controls style="width:100%; max-height:400px;" preload="metadata">
+                   <source src="${media}" type="video/mp4">
+                   আপনার ব্রাউজার ভিডিও সাপোর্ট করে না।
+                 </video>`
+            : `<img src="${media}" alt="${title}" />`;
 
-          html += `
-            <div class="premium-news-item">
+          output += `
+            <div class="news-item">
               <h2>${title}</h2>
-              ${mediaTag}
-              <p class="premium-news-description">${desc}</p>
-              <div class="premium-news-full">${full}</div>
-              <span class="premium-news-toggle" onclick="toggleNews(this)">বিস্তারিত পড়ুন</span>
-              <button class="premium-news-share" onclick="shareNews('${title}', \`${desc}\n\n${full}\`)">শেয়ার করুন</button>
+              ${mediaElement}
+              <p>${description}</p>
+              <p class="full-news" style="display:none;">${full}</p>
+              <span class="toggle" onclick="toggleFull(this)">বিস্তারিত পড়ুন</span>
+              <button onclick="copyLink('${slug}')">লিংক কপি করুন</button>
             </div>
           `;
         });
-        document.getElementById('premiumNewsContainer').innerHTML = html;
+        document.getElementById('newsContainer').innerHTML = output;
       });
 
-    // YouTube ID extraction from the URL
-    function getYouTubeId(url) {
-      const regExp = /(?:https?:\/\/(?:www\.)?youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/?([^"&?\/\s]*))|youtu\.be\/([^"&?\/\s]*))/;
-      const match = url.match(regExp);
-      return (match && (match[1] || match[2])) || null;
-    }
-
-    function toggleNews(el) {
-      const fullNews = el.previousElementSibling;
-      if (fullNews.style.display === 'block') {
-        fullNews.style.display = 'none';
-        el.innerText = 'বিস্তারিত পড়ুন';
+    // বিস্তারিত পড়ুন/বন্ধ করুন ফাংশন
+    function toggleFull(btn) {
+      const fullText = btn.previousElementSibling;
+      if (fullText.style.display === "none") {
+        fullText.style.display = "block";
+        btn.innerText = "বন্ধ করুন";
       } else {
-        fullNews.style.display = 'block';
-        el.innerText = 'বন্ধ করুন';
+        fullText.style.display = "none";
+        btn.innerText = "বিস্তারিত পড়ুন";
       }
     }
 
-    function shareNews(title, content) {
-      if (navigator.share) {
-        navigator.share({
-          title: title,
-          text: content,
-          url: window.location.href
-        })
-        .catch((err) => console.log('Share error:', err));
-      } else {
-        // Fallback to clipboard copy
-        navigator.clipboard.writeText(`${title}\n\n${content}\n\n${window.location.href}`)
-          .then(() => alert("নিউজ কপি করা হয়েছে! শেয়ার করতে এখন পেস্ট করুন।"))
-          .catch(() => alert("কপি করা যায়নি। অনুগ্রহ করে ম্যানুয়ালি কপি করুন।"));
-      }
+    // লিংক কপি
+    function copyLink(slug) {
+      const url = `${window.location.origin}/?post=${slug}`;
+      navigator.clipboard.writeText(url)
+        .then(() => alert("লিংক কপি হয়েছে!"))
+        .catch(() => alert("লিংক কপি ব্যর্থ হয়েছে!"));
     }
+
+    // ইউআরএল থেকে পোস্ট দেখানো
+    window.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const post = urlParams.get('post');
+      if (post) {
+        document.querySelector('h1').innerText = `নির্বাচিত পোস্ট`;
+        // চাইলে এখানে ফিল্টার করে সেই পোস্টটি আলাদাভাবে দেখাতে পারেন
+      }
+    });
   </script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fdfdfd;
+      color: #333;
+      text-align: center;
+    }
+
+    .logo img {
+      width: 180px;
+      margin: 20px auto;
+      display: block;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+      background: linear-gradient(135deg, #ffe0e6, #fff5f2);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #d6336c;
+    }
+
+    .news-item {
+      background: white;
+      margin: 30px 0;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+    }
+
+    .news-item img, .news-item video, .news-item iframe {
+      width: 100%;
+      border-radius: 10px;
+      margin-top: 15px;
+    }
+
+    .news-item h2 {
+      font-size: 24px;
+      color: #111;
+      margin-bottom: 10px;
+    }
+
+    .news-item p {
+      font-size: 18px;
+      line-height: 1.6;
+      margin: 10px 0;
+    }
+
+    .toggle {
+      background-color: #d6336c;
+      color: white;
+      padding: 5px 10px;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+      border-radius: 8px;
+    }
+
+    .toggle:hover {
+      background-color: #aa1c49;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </body>
 </html>
-  
 <!DOCTYPE html>
 <html lang="bn">
 <head>
