@@ -377,40 +377,47 @@
     });
   </script></body>
 </html>
+
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>DJ Media 24 - নিউজ</title>
-  <meta property="og:title" content="DJ Media 24 - নিউজ">
-  <meta property="og:description" content="সর্বশেষ খবর, ভিডিও ও আরও অনেক কিছু।">
-  <meta property="og:image" content="https://dj-media-24.netlify.app/cover.jpg"> <!-- একটি প্রিভিউ ইমেজ রাখুন -->
-  <meta property="og:url" content="https://dj-media-24.netlify.app">
-  <link rel="stylesheet" href="style.css">
+
+  <!-- Static OG meta tags -->
+  <meta property="og:title" content="DJ Media 24 - সর্বশেষ সংবাদ" />
+  <meta property="og:description" content="সর্বশেষ খবর, ভিডিও ও আরও অনেক কিছু।" />
+  <meta property="og:image" content="https://dj-media-24.netlify.app/cover.jpg" />
+  <meta property="og:url" content="https://dj-media-24.netlify.app" />
+
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="logo">
-    <img src="https://i.postimg.cc/RZ49Vykn/20240110-084759.jpg" alt="DJ Media 24 Logo">
+    <img src="https://i.postimg.cc/RZ49Vykn/20240110-084759.jpg" alt="DJ Media 24 Logo" />
   </div>
-
   <div class="container">
-    <h1>আজকের প্রিমিয়াম নিউজ</h1>
+    <h1 id="mainHeading">আজকের প্রিমিয়াম নিউজ</h1>
     <div id="newsContainer"></div>
   </div>
 
   <script>
-    // নিউজ ডেটা লোড
-    fetch('https://sheetdb.io/api/v1/93b4nowtrr4qh') // SheetDB API
+    let urlParams = new URLSearchParams(window.location.search);
+    let selectedPost = urlParams.get('post');
+
+    fetch('https://sheetdb.io/api/v1/93b4nowtrr4qh')
       .then(res => res.json())
       .then(data => {
         let output = '';
         data.forEach(news => {
-          const title = news["Title "] || "শিরোনাম নেই";
-          const media = news["Img URL "] || "";
+          const title = news["Title "]?.trim() || "শিরোনাম নেই";
+          const media = news["Img URL "]?.trim() || "";
           const description = news["Description "] || "";
           const full = news["Full News "] || "";
           const slug = encodeURIComponent(title.replace(/\s+/g, '-').toLowerCase());
+
+          const isSelected = slug === selectedPost;
 
           const mediaElement = media.includes('.mp4') || media.includes('youtube')
             ? media.includes('youtube')
@@ -421,8 +428,8 @@
                  </video>`
             : `<img src="${media}" alt="${title}" />`;
 
-          output += `
-            <div class="news-item" data-slug="${slug}" data-title="${title}" data-image="${media}" data-description="${description}">
+          const itemHTML = `
+            <div class="news-item">
               <h2>${title}</h2>
               ${mediaElement}
               <p>${description}</p>
@@ -431,11 +438,19 @@
               <button onclick="copyLink('${slug}')">লিংক কপি করুন</button>
             </div>
           `;
+
+          if (!selectedPost || isSelected) {
+            output += itemHTML;
+            if (isSelected) {
+              document.getElementById('mainHeading').innerText = "নির্বাচিত পোস্ট";
+              document.querySelector('meta[property="og:title"]').setAttribute("content", title);
+              document.querySelector('meta[property="og:image"]').setAttribute("content", media);
+            }
+          }
         });
         document.getElementById('newsContainer').innerHTML = output;
       });
 
-    // বিস্তারিত পড়ুন/বন্ধ করুন ফাংশন
     function toggleFull(btn) {
       const fullText = btn.previousElementSibling;
       if (fullText.style.display === "none") {
@@ -447,42 +462,12 @@
       }
     }
 
-    // লিংক কপি
     function copyLink(slug) {
       const url = `${window.location.origin}/?post=${slug}`;
       navigator.clipboard.writeText(url)
         .then(() => alert("লিংক কপি হয়েছে!"))
         .catch(() => alert("লিংক কপি ব্যর্থ হয়েছে!"));
     }
-
-    // ইউআরএল থেকে পোস্ট দেখানো
-    window.addEventListener('DOMContentLoaded', () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const post = urlParams.get('post');
-      if (post) {
-        const postElement = document.querySelector(`.news-item[data-slug="${post}"]`);
-        if (postElement) {
-          const title = postElement.getAttribute('data-title');
-          const image = postElement.getAttribute('data-image');
-          const description = postElement.getAttribute('data-description');
-
-          // Open Graph Meta Tags update for sharing post
-          document.querySelector('meta[property="og:title"]').setAttribute('content', title);
-          document.querySelector('meta[property="og:image"]').setAttribute('content', image);
-          document.querySelector('meta[property="og:description"]').setAttribute('content', description);
-          document.querySelector('meta[property="og:url"]').setAttribute('content', `${window.location.origin}/?post=${post}`);
-
-          document.querySelector('h1').innerText = title;
-          document.getElementById('newsContainer').innerHTML = `
-            <div class="news-item">
-              <h2>${title}</h2>
-              <img src="${image}" alt="${title}" />
-              <p>${description}</p>
-            </div>
-          `;
-        }
-      }
-    });
   </script>
 
   <style>
@@ -538,6 +523,12 @@
       font-size: 18px;
       line-height: 1.6;
       margin: 10px 0;
+      color: #333;
+    }
+
+    .full-news {
+      display: none;
+      color: #000; /* ফিক্স: সাদা না হয়ে কালো দেখাবে */
     }
 
     .toggle {
@@ -548,6 +539,7 @@
       cursor: pointer;
       margin-top: 10px;
       border-radius: 8px;
+      display: inline-block;
     }
 
     .toggle:hover {
