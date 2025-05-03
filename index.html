@@ -274,7 +274,7 @@
   চ্যানেল ফলো দিয়ে পাশে থাকুন।
   <br/>
   আপনার কিছু তথ্য জানানোর থাকলে আমাদের সাথে 
-  <a href="mailto:djmedia241@gmail.com" target="_blank" class="icon-link"><span class="material-symbols-rounded">chat</span> লাইভ চ্যাট</a> এর মাধ্যমে যোগাযোগ করুন।
+  <a href="djmedia241@gmail.com" target="_blank" class="icon-link"><span class="material-symbols-rounded">chat</span> লাইভ চ্যাট</a> এর মাধ্যমে যোগাযোগ করুন।
   </p>
   </div>
   </div>
@@ -547,12 +547,12 @@
         navigator.share({
           title: title,
           text: content,
-          url: window.location.href
+          url: premium-news-full
         })
         .catch((err) => console.log('Share error:', err));
       } else {
         // Fallback to clipboard copy
-        navigator.clipboard.writeText(`${title}\n\n${content}\n\n${window.location.href}`)
+        navigator.clipboard.writeText(`${title}\n\n${content}\n\n${premium-news-full}`)
           .then(() => alert("নিউজ কপি করা হয়েছে! শেয়ার করতে এখন পেস্ট করুন।"))
           .catch(() => alert("কপি করা যায়নি। অনুগ্রহ করে ম্যানুয়ালি কপি করুন।"));
       }
@@ -768,9 +768,9 @@
   </p>
   <div class="icons">
     <a href="https://www.facebook.com/djmedia24"><img src="https://i.postimg.cc/XJTvBJfY/status.png" alt="Facebook"></a>
-    <a href="https://wa.me/01743632215"><img src="https://i.postimg.cc/KzK7BJWr/mobile.png" alt="Whatsapp"></a>
+    <a href="https://wa.me/qr/ZXHZZ3DNJWYMJ1"><img src="https://i.postimg.cc/KzK7BJWr/mobile.png" alt="Whatsapp"></a>
     <a href="#"><img src="https://i.postimg.cc/mrjp8XVv/twitter-1.png" alt="Twitter"></a>
-    <a href="mailto:armanhasansopon@gmail.com"><img src="https://i.postimg.cc/vB1jT7LC/email.png" alt="Email"></a>
+    <a href="armanhasansopon@gmail.com"><img src="https://i.postimg.cc/vB1jT7LC/email.png" alt="Email"></a>
   </div>
 </div>
 <footer class="clean-footer">
@@ -794,7 +794,7 @@
         <p>Twitter</p>
       </div>
       <div class="social-icon">
-        <img src="https://i.postimg.cc/6Qrxw12b/email.png" alt="mailto:djmedia241@gmail.com" />
+        <img src="https://i.postimg.cc/6Qrxw12b/email.png" alt="djmedia241@gmail.com" />
         <p>Gmail</p>
       </div>
     </div>
@@ -890,4 +890,4 @@
     justify-content: flex-end;
   }
 }
-</style>
+ </style>
