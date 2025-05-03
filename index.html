@@ -195,6 +195,94 @@
       </a>
     </nav>
   </header>
+ <meta charset="UTF-8" />
+<!-- Google Material Icons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<!-- Premium Popup HTML -->
+<div id="djMediaPopup" class="dj-popup-overlay">
+  <div class="dj-popup-box">
+    <span class="material-icons close-icon" onclick="closeDjPopup()">close</span>
+    <h2><span class="material-icons">campaign</span> Dj Media 24</h2>
+    <p>জনগণের সাথে আগামীর পথে — সঠিক খবর, দ্রুত আপনার দোরগোড়ায় পৌঁছে দিতে আমাদের অঙ্গীকার।</p>
+  </div>
+</div>
+
+<!-- Premium Popup CSS -->
+<style>
+  .dj-popup-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  .dj-popup-box {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 20px;
+    max-width: 90%;
+    width: 400px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    font-family: 'Segoe UI', sans-serif;
+  }
+  .dj-popup-box h2 {
+    margin: 0 0 10px;
+    font-size: 24px;
+    color: #d32f2f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  .dj-popup-box p {
+    font-size: 16px;
+    color: #333;
+  }
+  .close-icon {
+    position: absolute;
+    top: 12px; right: 12px;
+    cursor: pointer;
+    font-size: 24px;
+    color: #555;
+    transition: 0.3s;
+  }
+  .close-icon:hover {
+    color: #d32f2f;
+  }
+
+  @media (max-width: 480px) {
+    .dj-popup-box {
+      width: 90%;
+      padding: 1.5rem;
+    }
+    .dj-popup-box h2 {
+      font-size: 20px;
+    }
+    .dj-popup-box p {
+      font-size: 14px;
+    }
+  }
+</style>
+
+<!-- Premium Popup JS -->
+<script>
+  function closeDjPopup() {
+    document.getElementById('djMediaPopup').style.display = 'none';
+  }
+
+  // Auto show popup after 2 seconds (can customize)
+  window.onload = function() {
+    setTimeout(() => {
+      document.getElementById('djMediaPopup').style.display = 'flex';
+    }, 2000);
+  }
+</script>
 
   <!-- Notice Marquee Board -->
   <div class="notice-marquee">
