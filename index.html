@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DJ MEDIA 24 | A BANGLADESH NEWS WEBSITE</title>
+<link rel="manifest" href="/manifest.json" />
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then(() => console.log('Service Worker Registered'));
+  }
+</script>
+  <!-- Google Fonts & Material Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Hind Siliguri', sans-serif;
+      background: #f4f4f4;
+    }
+
+    .n24-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 16px;
+      border-bottom: 1px solid #ddd;
+      z-index: 1000;
+    }
+
+    .n24-logo {
+      height: 40px;
+    }
+
+    .n24-date {
+      font-size: 13px;
+      color: #555;
+      margin-top: 4px;
+    }
+
+    .n24-menu-icon {
+      font-size: 28px;
+      cursor: pointer;
+      color: #333;
+    }
+
+    .n24-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      display: none;
+      z-index: 999;
+    }
+
+    .n24-overlay.show {
+      display: block;
+    }
+
+    .n24-sidebar {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 100%;
+      max-width: 320px;
+      background: #ffffff;
+      box-shadow: -3px 0 10px rgba(0, 0, 0, 0.3);
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .n24-sidebar.open {
+      transform: translateX(0);
+    }
+
+    .n24-sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .n24-sidebar-header img {
+      height: 35px;
+    }
+
+    .n24-close-btn {
+      font-size: 24px;
+      cursor: pointer;
+      color: #333;
+    }
+
+    .n24-menu-list {
+      overflow-y: auto;
+      flex-grow: 1;
+    }
+
+    .n24-menu-list a {
+      display: flex;
+      align-items: center;
+      padding: 14px 20px;
+      font-size: 16px;
+      color: #222;
+      text-decoration: none;
+      border-bottom: 1px solid #f0f0f0;
+      transition: background 0.2s;
+    }
+
+    .n24-menu-list a i {
+      margin-right: 10px;
+      color: #007bff;
+      font-size: 20px;
+    }
+
+    .n24-menu-list a:hover {
+      background: #f8f8f8;
+    }
+
+    .n24-content {
+      padding: 80px 16px 16px;
+    }
+
+    @media (max-width: 400px) {
+      .n24-menu-list a {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Overlay -->
+  <div class="n24-overlay" id="n24Overlay" onclick="toggleMenu()"></div>
+
+  <!-- Header -->
+  <div class="n24-header">
+    <div>
+      <img src="https://i.postimg.cc/j5BWyK0k/Picsart-25-07-10-09-41-50-798.png" alt="Logo" class="n24-logo">
+      <div class="n24-date" id="currentDate"></div>
+    </div>
+    <div class="n24-menu-icon material-icons-outlined" onclick="toggleMenu()">menu</div>
+  </div>
+
+  <!-- Sidebar -->
+  <div class="n24-sidebar" id="n24Sidebar">
+    <div class="n24-sidebar-header">
+      <img src="https://i.postimg.cc/j5BWyK0k/Picsart-25-07-10-09-41-50-798.png" alt="Logo">
+      <span class="n24-close-btn material-icons-outlined" onclick="toggleMenu()">close</span>
+    </div>
+    <div class="n24-menu-list">
+      <a href="#"><i class="material-icons-outlined">home</i>প্রচ্ছদ</a>
+      <a href="#"><i class="material-icons-outlined">today</i>আজকের খবর</a>
+      <a href="#"><i class="material-icons-outlined">flag</i>জাতীয়</a>
+      <a href="#"><i class="material-icons-outlined">public</i>আন্তর্জাতিক</a>
+      <a href="#"><i class="material-icons-outlined">sports_soccer</i>খেলাধুলা</a>
+      <a href="#"><i class="material-icons-outlined">self_improvement</i>ধর্ম</a>
+      <a href="#"><i class="material-icons-outlined">gavel</i>রাজনীতি</a>
+      <a href="#"><i class="material-icons-outlined">place</i>সারাদেশ</a>
+      <a href="#"><i class="material-icons-outlined">movie</i>বিনোদন</a>
+      <a href="#"><i class="material-icons-outlined">menu_book</i>অন্যান্য</a>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="n24-content">
+  <br>
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DJ MEDIA 24 Notice Bar</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f5f5;
+    }
+
+    .notice-bar {
+      position: relative;
+      background: linear-gradient(to right, #0d47a1, #1565c0);
+      color: white;
+      overflow: hidden;
+      border: 3px solid white; /* সাদা বর্ডার উপরে, নিচে ও বামে */
+      border-right: none; /* ডান পাশে বর্ডার নাই */
+      padding: 14px 0;
+      display: flex;
+      align-items: center;
+    }
+
+    .notice-logo {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      margin-left: 15px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .notice-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .notice-text-wrapper {
+      position: relative;
+      flex-grow: 1;
+      overflow: hidden;
+      margin-left: 15px;
+      padding-bottom: 5px;
+      border-bottom: 3px solid white; /* মেসেজের নিচে সাদা বর্ডার */
+    }
+
+    .notice-text {
+      white-space: nowrap;
+      display: inline-block;
+      padding-left: 100%;
+      animation: scroll-left 18s linear infinite;
+      font-size: 17px;
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+      color: white;
+    }
+
+    @keyframes scroll-left {
+      0% {
+        transform: translateX(0%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
+    /* মোবাইল ফ্রেন্ডলি */
+    @media (max-width: 600px) {
+      .notice-logo {
+        width: 36px;
+        height: 36px;
+        margin-left: 10px;
+      }
+
+      .notice-text {
+        font-size: 14px;
+      }
+
+      .notice-text-wrapper {
+        margin-left: 10px;
+        padding-bottom: 4px;
+        border-bottom-width: 2px;
+      }
+
+      .notice-bar {
+        padding: 9px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="notice-bar">
+    <div class="notice-logo">
+      <img src="https://i.postimg.cc/d3LVHfvZ/live-news-2692482.png" alt="DJ MEDIA 24 Logo" />
+    </div>
+    <div class="notice-text-wrapper">
+      <div class="notice-text">
+        DJ MEDIA 24 | সত্যের সন্ধানে মানব কল্যাণে আমরা অঙ্গীকারবদ্ধ
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
+    <!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Scroll</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: transparent;
+      font-family: sans-serif;
+    }
+
+    .scroll-wrapper {
+      overflow: hidden;
+      width: 100%;
+      background: transparent;
+      padding: 10px 0;
+    }
+
+    .scroll-track {
+      display: flex;
+      width: max-content;
+      animation: scrollLeft 15s linear infinite;
+    }
+
+    .scroll-item {
+      flex: 0 0 auto;
+      width: 100px;
+      margin-right: 10px;
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 10px;
+      text-align: center;
+      padding: 5px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
+
+    .scroll-item:hover {
+      transform: scale(1.05);
+    }
+
+    .scroll-item img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .scroll-item span {
+      display: block;
+      margin-top: 5px;
+      font-size: 14px;
+      color: #000;
+      font-weight: bold;
+    }
+
+    @keyframes scrollLeft {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .scroll-item {
+        width: 80px;
+        margin-right: 8px;
+      }
+    }
+
+    /* Modal Style */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: #fff;
+      border-radius: 15px;
+      max-width: 90%;
+      width: 320px;
+      text-align: center;
+      padding: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      animation: pop 0.3s ease;
+    }
+
+    .modal-content img {
+      width: 100px;
+      border-radius: 10px;
+    }
+
+    .modal-content h3 {
+      margin: 10px 0 5px;
+      font-size: 18px;
+    }
+
+    .modal-content p {
+      font-size: 15px;
+      margin: 5px 0 15px;
+    }
+
+    .modal-content button {
+      padding: 8px 18px;
+      margin: 5px;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .yes-btn {
+      background: #28a745;
+      color: #fff;
+    }
+
+    .no-btn {
+      background: #dc3545;
+      color: #fff;
+    }
+
+    @keyframes pop {
+      0% {transform: scale(0.7); opacity: 0;}
+      100% {transform: scale(1); opacity: 1;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="scroll-wrapper">
+  <div class="scroll-track">
+    <!-- Scroll items with data -->
+    <div class="scroll-item" onclick="openModal('আজকের খবর', 'https://i.postimg.cc/W1fMgQhB/images-11.jpg', 'todaynews.html')">
+      <img src="https://i.postimg.cc/W1fMgQhB/images-11.jpg"><span>আজকের খবর</span>
+    </div>
+    <div class="scroll-item" onclick="openModal('খেলাধুলার খবর', 'https://i.postimg.cc/XvmkSTWf/images-9.jpg', 'newsplay.html')">
+      <img src="https://i.postimg.cc/XvmkSTWf/images-9.jpg"><span>খেলাধুলার খবর</span>
+    </div>
+    <div class="scroll-item" onclick="openModal('বিনোদনের খবর', 'https://i.postimg.cc/g2dY4J6R/images-13.jpg', 'binodon.html')">
+      <img src="https://i.postimg.cc/g2dY4J6R/images-13.jpg"><span>বিনোদনের খবর</span>
+    </div>
+    <div class="scroll-item" onclick="openModal('সারাবিশ্বর খবর', 'https://i.postimg.cc/xC9TCd9n/images-12.jpg', 'worldnews.html')">
+      <img src="https://i.postimg.cc/xC9TCd9n/images-12.jpg"><span>সারাবিশ্বর খবর</span>
+    </div>
+    <div class="scroll-item" onclick="openModal('রাজনীতির খবর', 'https://i.postimg.cc/cLYsB3Hd/images-10.jpg', 'politic.html')">
+      <img src="https://i.postimg.cc/cLYsB3Hd/images-10.jpg"><span>রাজনীতির খবর</span>
+    </div>
+
+    <!-- Repeat for looping -->
+    <div class="scroll-item" onclick="openModal('আজকের খবর', 'https://i.postimg.cc/W1fMgQhB/images-11.jpg', 'todaynews.html')">
+      <img src="https://i.postimg.cc/W1fMgQhB/images-11.jpg"><span>আজকের খবর</span>
+    </div>
+    <div class="scroll-item" onclick="openModal('খেলাধুলার খবর', 'https://i.postimg.cc/XvmkSTWf/images-9.jpg', 'newsplay.html')">
+      <img src="https://i.postimg.cc/XvmkSTWf/images-9.jpg"><span>খেলাধুলার খবর</span>
+    </div>
+    <div class="scroll-item" onclick="openModal('বিনোদনের খবর', 'https://i.postimg.cc/g2dY4J6R/images-13.jpg', 'binodon.html')">
+      <img src="https://i.postimg.cc/g2dY4J6R/images-13.jpg"><span>বিনোদনের খবর</span>
+    </div>
+    <div class="scroll-item" onclick="openModal('সারাবিশ্বর খবর', 'https://i.postimg.cc/xC9TCd9n/images-12.jpg', 'worldnews.html')">
+      <img src="https://i.postimg.cc/xC9TCd9n/images-12.jpg"><span>সারাবিশ্বর খবর</span>
+    </div>
+    <div class="scroll-item" onclick="openModal('রাজনীতির খবর', 'https://i.postimg.cc/cLYsB3Hd/images-10.jpg', 'politic.html')">
+      <img src="https://i.postimg.cc/cLYsB3Hd/images-10.jpg"><span>রাজনীতির খবর</span>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="popupModal">
+  <div class="modal-content">
+    <img id="popupImage" src="" alt=""/>
+    <h3 id="popupTitle"></h3>
+    <p id="popupMessage"></p>
+    <button class="yes-btn" id="yesBtn">Yes</button>
+    <button class="no-btn" onclick="closeModal()">No</button>
+  </div>
+</div>
+
+<script>
+  let modal = document.getElementById('popupModal');
+  let title = document.getElementById('popupTitle');
+  let message = document.getElementById('popupMessage');
+  let img = document.getElementById('popupImage');
+  let yesBtn = document.getElementById('yesBtn');
+
+  function openModal(optionName, imageUrl, linkUrl) {
+    title.textContent = optionName;
+    img.src = imageUrl;
+    message.textContent = `আপনি কি "${optionName}" এর সকল খবর গুলো দেখতে চান?`;
+    yesBtn.onclick = function () {
+      window.location.href = linkUrl;
+    };
+    modal.style.display = 'flex';
+  }
+
+  function closeModal() {
+    modal.style.display = 'none';
+  }
+
+  // ক্লিক করলে বাইরে মোডাল বন্ধ
+  window.onclick = function(event) {
+    if (event.target === modal) {
+      closeModal();
+    }
+  }
+</script>
+
+</body>
+</html>
+    <br>
+<!DOCTYPE html><html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>📰 DJ MEDIA 24 - সর্বশেষ সংবাদ</title>  <!-- Firebase CDN -->  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>  <!-- Google Fonts & Material Icons -->  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(to bottom right, #f7f9fc, #edf2f7);
+      color: #222;
+      padding: 1rem;
+    }
+    #app {
+      max-width: 800px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: #023047;
+      position: relative;
+    }
+    h1::after {
+      content: '';
+      position: absolute;
+      width: 60px;
+      height: 3px;
+      background: #219ebc;
+      left: 50%;
+      bottom: -10px;
+      transform: translateX(-50%);
+      border-radius: 10px;
+    }
+
+    .news-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+    .news-card:hover {
+      transform: translateY(-5px);
+    }
+    .news-image {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+    .news-content {
+      padding: 1rem;
+    }
+    .news-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #0077b6;
+      margin-bottom: 0.5rem;
+    }
+    .news-desc {
+      font-size: 1rem;
+      color: #444;
+    }
+
+    #detail-view {
+      display: none;
+      background: #fff;
+      padding: 1.2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      margin-top: 2rem;
+    }
+    #detail-view.active {
+      display: block;
+    }
+    #detail-view img, #detail-view video {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+    #detail-title {
+      font-size: 1.5rem;
+      color: #023047;
+      margin-bottom: 0.5rem;
+    }
+    #detail-content {
+      font-size: 1.05rem;
+      color: #333;
+      line-height: 1.6;
+    }
+    #close-detail, .share-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: #219ebc;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      margin-top: 1rem;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    #close-detail {
+      background: #ff6b6b;
+      margin-left: 1rem;
+    }
+    .material-icons {
+      vertical-align: middle;
+    }
+
+    @media(max-width: 480px) {
+      .news-image {
+        height: 150px;
+      }
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style></head>
+<body>
+<div id="app">
+  <h1>📰 DJ MEDIA 24 - সর্বশেষ সংবাদ</h1>
+  <div id="news-list"><p>লোড হচ্ছে...</p></div>  <div id="detail-view" class="card">
+    <h2 id="detail-title"></h2>
+    <div id="detail-media"></div>
+    <p id="detail-content"></p>
+    <button id="share-button" class="share-btn">
+      <span class="material-icons">share</span> লিংক শেয়ার
+    </button>
+    <button id="close-detail">
+      <span class="material-icons">arrow_back</span> পিছনে যান
+    </button>
+  </div>
+</div><script>
+(function(){
+  const firebaseConfig = {
+    apiKey: "AIzaSyA-D9zO0EwMz_BovP6YWc5HUUexXaOvXIQ",
+    authDomain: "dj-media-4d0f9.firebaseapp.com",
+    projectId: "dj-media-4d0f9",
+    storageBucket: "dj-media-4d0f9.appspot.com",
+    messagingSenderId: "794113924387",
+    appId: "1:794113924387:web:f57cdca8dcba24a9b08096"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  const newsListEl = document.getElementById('news-list');
+  const detailView = document.getElementById('detail-view');
+  const detailTitle = document.getElementById('detail-title');
+  const detailContent = document.getElementById('detail-content');
+  const detailMedia = document.getElementById('detail-media');
+  const closeDetailBtn = document.getElementById('close-detail');
+  const shareBtn = document.getElementById('share-button');
+  let currentNewsUrl = '';
+
+  function isVideo(url) {
+    return /\.(mp4|webm|ogg)$/i.test(url);
+  }
+
+  function showDetail(news) {
+    detailTitle.textContent = news.title;
+    detailContent.textContent = news.content;
+    currentNewsUrl = location.origin + location.pathname + '#news=' + news.id;
+    detailMedia.innerHTML = '';
+
+    if(news.mediaUrl){
+      if(isVideo(news.mediaUrl)){
+        const video = document.createElement('video');
+        video.src = news.mediaUrl;
+        video.controls = true;
+        detailMedia.appendChild(video);
+      } else {
+        const img = document.createElement('img');
+        img.src = news.mediaUrl;
+        detailMedia.appendChild(img);
+      }
+    }
+
+    newsListEl.style.display = 'none';
+    detailView.classList.add('active');
+    history.replaceState(null, '', currentNewsUrl);
+  }
+
+  closeDetailBtn.addEventListener('click', ()=>{
+    detailView.classList.remove('active');
+    newsListEl.style.display = 'block';
+    history.replaceState(null, '', location.pathname);
+  });
+
+  shareBtn.addEventListener('click', ()=>{
+    if(navigator.clipboard){
+      navigator.clipboard.writeText(currentNewsUrl).then(()=>{
+        alert('✅ লিংক কপি হয়েছে! শেয়ার করুন');
+        window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(currentNewsUrl), '_blank');
+      });
+    } else {
+      alert('⚠️ কপি সাপোর্ট করে না');
+    }
+  });
+
+  async function loadNews(){
+    const snap = await db.collection('news').orderBy('createdAt','desc').get();
+    newsListEl.innerHTML = '';
+
+    if(snap.empty){
+      newsListEl.innerHTML = '<p>কোনো সংবাদ নেই।</p>';
+      return;
+    }
+
+    snap.forEach(doc => {
+      const news = doc.data();
+      const card = document.createElement('div');
+      card.className = 'news-card';
+      if(news.mediaUrl){
+        const media = document.createElement(news.mediaUrl.match(/\.(mp4|webm)/) ? 'video' : 'img');
+        media.src = news.mediaUrl;
+        media.className = 'news-image';
+        if(media.tagName === 'VIDEO') media.muted = media.loop = media.autoplay = true;
+        card.appendChild(media);
+      }
+      const content = document.createElement('div');
+      content.className = 'news-content';
+      const title = document.createElement('div');
+      title.className = 'news-title';
+      title.textContent = news.title;
+      const desc = document.createElement('div');
+      desc.className = 'news-desc';
+      desc.textContent = (news.content || '').slice(0,120) + '...';
+      content.appendChild(title);
+      content.appendChild(desc);
+      card.appendChild(content);
+      card.onclick = ()=> showDetail({ ...news, id: doc.id });
+      newsListEl.appendChild(card);
+    });
+  }
+  loadNews();
+})();
+</script></body>
+</html>
+    <!-- Place this code just before </body> -->
+<!-- Popup HTML -->
+<div id="appInstallPopup" style="display:none;">
+  <div id="popupOverlay"></div>
+  <div id="popupBox">
+    <img src="https://i.postimg.cc/wx1cHR3t/20250710-112541.png" alt="App Logo" />
+    <h3>DOWNLOAD OUR APP</h3>
+    <div class="popup-buttons">
+      <button id="installBtn">Install</button>
+      <button id="cancelBtn">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Styles (Scoped & Clean) -->
+<style>
+  #appInstallPopup {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    z-index: 9999;
+  }
+  #popupOverlay {
+    position: absolute;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+  }
+  #popupBox {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 350px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  #popupBox img {
+    width: 80px;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  #popupBox h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  .popup-buttons button {
+    padding: 10px 20px;
+    margin: 10px 5px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  #installBtn {
+    background: #007bff;
+    color: #fff;
+  }
+  #cancelBtn {
+    background: #f44336;
+    color: #fff;
+  }
+  .popup-buttons button:hover {
+    opacity: 0.9;
+  }
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translate(-50%, -40%);}
+    to {opacity: 1; transform: translate(-50%, -50%);}
+  }
+</style>
+
+<!-- JavaScript -->
+<script>
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+  });
+
+  setTimeout(() => {
+    const popup = document.getElementById('appInstallPopup');
+    if (deferredPrompt) {
+      popup.style.display = 'block';
+    }
+  }, 7000); // 7 seconds
+
+  document.getElementById('installBtn').addEventListener('click', async () => {
+    const popup = document.getElementById('appInstallPopup');
+    popup.style.display = 'none';
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const choiceResult = await deferredPrompt.userChoice;
+      if (choiceResult.outcome === 'accepted') {
+        console.log('User accepted the install prompt');
+      } else {
+        console.log('User dismissed the install prompt');
+      }
+      deferredPrompt = null;
+    }
+  });
+
+  document.getElementById('cancelBtn').addEventListener('click', () => {
+    document.getElementById('appInstallPopup').style.display = 'none';
+  });
+</script>
+    <!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>যোগাযোগ</title>
+
+  <!-- উন্নত ফন্ট -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Lottie Script -->
+  <script src="https://unpkg.com/lottie-web@5.7.6/build/player/lottie.min.js"></script>
+
+  <!-- আলাদা স্টাইল যাতে অন্য কিছুর উপর প্রভাব না ফেলে -->
+  <style>
+    .custom-contact-section {
+      font-family: 'Roboto', sans-serif;
+      background: #ffffff;
+      padding: 20px 15px;
+      border-radius: 12px;
+      max-width: 360px;
+      margin: 30px auto;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      text-align: center;
+    }
+
+    .custom-contact-section .lottie-box {
+      width: 200px;
+      height: 200px;
+      margin: 0 auto 10px;
+    }
+
+    .custom-contact-section .contact-text {
+      font-size: 16px;
+      font-weight: 600;
+      color: #333;
+      margin: 10px 0 20px;
+    }
+
+    .custom-contact-section .icons {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+    }
+
+    .custom-contact-section .icons a img {
+      width: 35px;
+      height: 35px;
+      transition: transform 0.3s;
+    }
+
+    .custom-contact-section .icons a img:hover {
+      transform: scale(1.15);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="custom-contact-section">
+    <!-- এনিমেশন -->
+    <div class="lottie-box" id="contactLottie"></div>
+
+    <!-- টেক্সট -->
+    <div class="contact-text"> <strong>যেকোনো তথ্য জানাতে আমাদের সাথে যোগাযোগ করুন!</strong></div>
+
+    <!-- আইকন (আপনার লিংক ও আইকন দিন নিচে) -->
+    <div class="icons">
+      <a href="https://facebook.com/yourpage" target="_blank" title="Facebook">
+        <img src="https://i.postimg.cc/WzPszJmG/social-14048841.png" alt="Facebook">
+      </a>
+      <a href="https://wa.me/8801234567890" target="_blank" title="WhatsApp">
+        <img src="https://i.postimg.cc/3R5sFQy7/whatsapp-2549366.png" alt="WhatsApp">
+      </a>
+      <a href="mailto:youremail@example.com" title="Email">
+        <img src="https://i.postimg.cc/wvXSW4JN/email-552486.png" alt="Email">
+      </a>
+    </div>
+  </div>
+
+  <!-- এনিমেশন লোড -->
+  <script>
+    lottie.loadAnimation({
+      container: document.getElementById('contactLottie'),
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      path: 'https://lottie.host/f8b9b4d4-9b6f-4c18-9fbc-ae4a63ba1030/N43ADl3weq.json'
+    });
+  </script>
+
+</body>
+</html>
+  <!-- Script -->
+  <script>
+    function toggleMenu() {
+      document.getElementById('n24Sidebar').classList.toggle('open');
+      document.getElementById('n24Overlay').classList.toggle('show');
+    }
+
+    // বাংলায় তারিখ
+    const dateElement = document.getElementById("currentDate");
+    const days = ['রবিবার', 'সোমবার', 'মঙ্গলবার', 'বুধবার', 'বৃহস্পতিবার', 'শুক্রবার', 'শনিবার'];
+    const months = ['জানুয়ারি', 'ফেব্রুয়ারি', 'মার্চ', 'এপ্রিল', 'মে', 'জুন', 'জুলাই', 'আগস্ট', 'সেপ্টেম্বর', 'অক্টোবর', 'নভেম্বর', 'ডিসেম্বর'];
+
+    const now = new Date();
+    const day = days[now.getDay()];
+    const date = now.getDate();
+    const month = months[now.getMonth()];
+    const year = now.getFullYear();
+
+    dateElement.innerText = `${day}, ${date} ${month} ${year}`;
+  </script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Loading Screen with Text</title>
+
+<style>
+  #custom-loader {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255,255,255,0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+    transition: opacity 0.5s ease;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #222;
+  }
+  #custom-loader.hide {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  #custom-loader lottie-player {
+    width: 450px;
+    height: 450px;
+  }
+
+  #loader-text {
+    margin-top: 15px;
+    font-weight: 600;
+    font-size: 1.3rem;
+    letter-spacing: 1.5px;
+    color: #1a1a1a;
+    user-select: none;
+  }
+
+  @media (max-width: 480px) {
+    #custom-loader lottie-player {
+      width: 120px;
+      height: 120px;
+    }
+    #loader-text {
+      font-size: 1.1rem;
+      margin-top: 12px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- আপনার ওয়েবসাইটের অন্য অংশ -->
+
+<div id="custom-loader" aria-label="Loading Animation">
+  <lottie-player
+    src="https://lottie.host/074528d3-5ed8-4371-9339-6040cad2b835/9A6goNwLlr.json"
+    background="transparent"
+    speed="1"
+    loop
+    autoplay
+  ></lottie-player>
+  <div id="loader-text">DJ MEDIA 24</div>
+</div>
+
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+<script>
+  (function(){
+    window.addEventListener('load', function(){
+      setTimeout(function(){
+        const loader = document.getElementById('custom-loader');
+        if(loader) {
+          loader.classList.add('hide');
+        }
+      }, 5000);
+    });
+  })();
+</script>
+<!-- Full Black Mobile-Friendly Footer -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+<div style="font-family: 'Inter', sans-serif; background-color: #000; color: #fff; padding: 40px 20px; text-align: center; width: 100%; box-sizing: border-box;">
+
+  <!-- Logo -->
+  <img src="https://i.postimg.cc/Y0wm70hV/Picsart-25-07-10-09-41-50-798.png" alt="Logo" style="width: 150px; margin-bottom: 20px;">
+
+  <!-- Info -->
+  <p style="margin: 8px 0; font-size: 16px;">নির্বাহী সম্পাদক: <strong style="color:#38bdf8;"> আরমান হাসান স্বপন</strong></p>
+  <p style="margin: 5px 0;">DJ MEDIA 24, প্লট-৩৭১/এ, ব্লক-ডি, পাছার বাজার, গৌরীপুর, ময়মনসিংহ-২২৭০</p>
+  <p style="margin: 5px 0;">📞 +880 2 55036352-55 , +880 2 55036351</p>
+  <p style="margin: 5px 0;">📧 <a href="mailto:online@djmedia24.bd" style="color: #60a5fa; text-decoration: none;">online@djmedia24.bd</a></p>
+
+  <!-- Custom Icons (You can add your own image icons here) -->
+  <div style="margin: 25px 0; display: flex; justify-content: center; flex-wrap: wrap; gap: 20px;">
+    <a href="#"><img src="https://i.postimg.cc/kgFVNqYF/facebook-logo-4406235.png" alt="Facebook" style="width: 28px; height: 28px;"></a>
+    <a href="#"><img src="https://i.postimg.cc/hj9tLqrR/youtubelogo.png" alt="YouTube" style="width: 28px; height: 28px;"></a>
+    <a href="#"><img src="https://i.postimg.cc/k4dnXpd1/twitter-3578922.png" alt="Twitter" style="width: 28px; height: 28px;"></a>
+    <a href="#"><img src="https://i.postimg.cc/wvXSW4JN/email-552486.png" alt="Email" style="width: 28px; height: 28px;"></a>
+  </div>
+
+  <!-- Navigation Links -->
+  <div style="margin-top: 20px; display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+    <a href="about.html" style="color:#fff; text-decoration:none; font-weight: 500;" onmouseover="this.style.color='#38bdf8'" onmouseout="this.style.color='#fff'">আমাদের সম্পর্কে</a>
+    <a href="privacy.html" style="color:#fff; text-decoration:none; font-weight: 500;" onmouseover="this.style.color='#38bdf8'" onmouseout="this.style.color='#fff'">গোপনীয়তা নীতি</a>
+    <a href="contact.html" style="color:#fff; text-decoration:none; font-weight: 500;" onmouseover="this.style.color='#38bdf8'" onmouseout="this.style.color='#fff'">যোগাযোগ করুন</a>
+  </div>
+
+  <!-- Developer Credit -->
+  <p style="font-size: 14px; margin-top: 25px; color: #aaa;">স্বত্ব © ২০২৫ News24bd.tv</p>
+  <p style="font-size: 14px;">
+    <a href="https://swygen.netlify.app" target="_blank" style="color: #38bdf8; text-decoration: none; font-weight: 600;">DEVELOPER BY SWYGEN</a>
+  </p>
+</div>
+</body>
+</html>
+
